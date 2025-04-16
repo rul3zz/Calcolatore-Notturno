@@ -112,35 +112,6 @@ def pulizia_file():
 
 # Alla pressione del tasto ESCI se presenti file cancellali e esci dal programma
 
-def kill_process(process_name):
-    try:
-        # Esegue il comando per ottenere l'elenco dei processi
-        output = subprocess.check_output(['tasklist', '/FO', 'CSV', '/NH']).decode('utf-8').strip()
-        # Divide l'output in righe
-        lines = output.split('\n')
-        for line in lines:
-            # Divide ogni riga in colonne
-            columns = line.split(',')
-            # Ottiene il nome del processo dalla colonna corrispondente
-            name = columns[0].strip('"')
-            # Se il nome del processo corrisponde a quello cercato, killa il processo
-            if name == process_name:
-                pid = int(columns[1].strip('"'))
-                subprocess.call(['taskkill', '/PID', str(pid)])
-                os.system('cls')
-                return
-    except subprocess.CalledProcessError:
-        pass
-
-
-###################################################
-###################################################
-########### Creazione File con le date ############
-###################################################
-###################################################
-
-
-
 def save_dates():
     start_date = start_date_entry.get_date()
     end_date = end_date_entry.get_date()
