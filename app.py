@@ -159,6 +159,7 @@ def avvia_elaborazione():
 def process_file():
     
     # Esegui la funzione per killare il processo "meta.xlsx"
+    kill_process("EXCEL.EXE")
     
     # ottiene il percorso della cartella di lavoro
     cartella_di_lavoro = os.getcwd()
@@ -371,30 +372,34 @@ def finale():
 
 
 
-# Caricamento PDF
+# 📤 Caricamento del PDF
 pdf_file = st.file_uploader("📄 Carica il file PDF dei turni", type=["pdf"])
 
+# 👤 Inserimento nome operatore
+nome_operatore = st.text_input("👤 Inserisci nome e cognome operatore").strip().upper()
+
+# Avvia elaborazione
 if st.button("🚀 Avvia Elaborazione"):
-    if not pdf_file:
-        st.warning("Per favore carica un file PDF.")
+    if not pdf_file or not nome_operatore:
+        st.warning("⚠️ Carica il file PDF e inserisci il nome dell'operatore.")
     else:
         try:
-            # Salvataggio temporaneo del PDF
+            # Salva il PDF temporaneamente
             with open("turni_input.pdf", "wb") as f:
                 f.write(pdf_file.read())
 
-            # Esegui pipeline logica
+            # Esegui la pipeline
             pulizia_file()
             puliza_celle_iniziale()
-            process_file()  # parsing PDF e preparazione dati
+            process_file()
             process_profilo_orario()
             calcola_valore()
             save_dates()
-            finale()  # salva su meta.xlsx
+            finale()
 
             st.success("✅ Elaborazione completata! Il file `meta.xlsx` è stato aggiornato.")
             with open("meta.xlsx", "rb") as f:
                 st.download_button("📥 Scarica meta.xlsx aggiornato", data=f, file_name="meta_aggiornato.xlsx")
 
         except Exception as e:
-            st.error(f"Errore durante l'elaborazione: {e}")
+            st.error(f"❌ Errore durante l'elaborazione: {e}")
