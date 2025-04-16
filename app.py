@@ -144,7 +144,7 @@ def save_dates():
 
 def avvia_elaborazione():
     """Esegue le funzioni solo se il campo non è vuoto."""
-    if nome_entry.get().strip():  # Se il campo non è vuoto
+    if nome_operatore:  # Usiamo input da Streamlit
         save_dates()
         process_file()
         process_profilo_orario()
@@ -161,7 +161,7 @@ def process_file():
     
     # ottiene il percorso della cartella di lavoro
     cartella_di_lavoro = os.getcwd()
-    cognome_nome = nome_entry.get().strip().upper()
+    cognome_nome = nome_operatore
     
     # Lettura del PDF caricato
     with open(pdf_path, 'rb') as pdf_file:
