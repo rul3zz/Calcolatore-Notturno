@@ -5,7 +5,6 @@ import openpyxl
 from io import BytesIO
 import PyPDF2
 import os
-import subprocess
 from datetime import datetime, time, timedelta
 
 st.set_page_config(page_title="Gestione Turni V5.2", layout="wide")
@@ -159,7 +158,6 @@ def avvia_elaborazione():
 def process_file():
     
     # Esegui la funzione per killare il processo "meta.xlsx"
-    kill_process("EXCEL.EXE")
     
     # ottiene il percorso della cartella di lavoro
     cartella_di_lavoro = os.getcwd()
@@ -257,7 +255,6 @@ def process_file():
         os.remove("data.dat")
         tk_root.quit()
         return
-
 
 
 
