@@ -159,7 +159,6 @@ def avvia_elaborazione():
 def process_file():
     
     # Esegui la funzione per killare il processo "meta.xlsx"
-    kill_process("EXCEL.EXE")
     
     # ottiene il percorso della cartella di lavoro
     cartella_di_lavoro = os.getcwd()
